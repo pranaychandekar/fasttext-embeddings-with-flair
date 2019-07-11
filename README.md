@@ -1,7 +1,7 @@
 
   
 # Custom Fasttext Embeddings with Flair  
-To get an overview of the need for this project, I would recommend to read [the article on the same.](medium) 
+To get a better overview and understanding of the need for this project, I would recommend to read [this article on the same.](medium) 
   
 The objective of this script is to be able to use our custom fasttext embeddings with the *[Flair](https://github.com/zalandoresearch/flair)*.
 ## Usage  

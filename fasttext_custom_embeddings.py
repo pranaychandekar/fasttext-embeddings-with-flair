@@ -25,8 +25,6 @@ from flair.data import Sentence
 from pathlib import Path
 import fasttext as ft
 
-import time
-
 
 class FastTextEmbeddings(TokenEmbeddings):
     """FastText Embeddings to use with Flair framework"""
@@ -94,28 +92,3 @@ class FastTextEmbeddings(TokenEmbeddings):
 
     def extra_repr(self):
         return f"'{self.embeddings}'"
-
-
-if __name__ == '__main__':
-    start = time.time()
-    print('Running the test module of the script. '
-          '\nPlease replace the path with either local path or remote url of the custom_fattext_embedding.bin file')
-
-    # Usage with local embeddings file.
-    sentence_1 = Sentence('The grass.', use_tokenizer=True)
-    ft_embeddings_local = FastTextEmbeddings('/path/to/custom_fasttext_embeddings.bin', use_local=True)
-    ft_embeddings_local.embed(sentence_1)
-    for token in sentence_1:
-        print(token, token.embedding)
-
-    # Usage with remote embeddings file. Preferably pass an https url to your emebddings file.
-    sentence_2 = Sentence('The grass.', use_tokenizer=True)
-    ft_embeddings_remote = FastTextEmbeddings('/url/to/custom_fattext_embeddings.bin', use_local=False)
-    ft_embeddings_remote.embed(sentence_2)
-    for token in sentence_2:
-        print(token, token.embedding)
-
-    # Usage with StackedEmbeddings.
-    # Usage with DocumentEmbeddings.
-
-    print('Time take: ', time.time() - start)

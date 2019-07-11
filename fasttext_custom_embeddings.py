@@ -29,22 +29,24 @@ import time
 
 
 class FastTextEmbeddings(TokenEmbeddings):
-    """Dynamic FastText Embeddings to use with Flair framework"""
+    """FastText Embeddings to use with Flair framework"""
 
-    def __init__(self, embeddings: str = None, use_local: bool = False, use_gensim: bool = False, field: str = None):
+    def __init__(self, embeddings: str = None, use_local: bool = True, use_gensim: bool = False, field: str = None):
         """
-        Initializes fasttext word embeddings. Constructor downloads required files if not there.
+        Initializes fasttext word embeddings. Constructor downloads required embedding file if not there.
+
         :param embeddings: path to your embeddings '.bin' file
-        :param use_local:
+        :param use_local: set this to False if you are using embeddings from a remote source
         :param use_gensim: set this to true if your fasttext embedding is trained with fasttext version below 0.9.1
         """
+
+        if embeddings is None:
+            raise ValueError(f'The given embeddings "{embeddings}" is not available or is not a valid path.')
 
         cache_dir = Path("embeddings")
         if use_local is True:
             if not Path(embeddings).exists():
-                raise ValueError(
-                    f'The given embeddings "{embeddings}" is not available or is not a valid path.'
-                )
+                raise ValueError(f'The given embeddings "{embeddings}" is not available or is not a valid path.')
         else:
             embeddings = cached_path(f"{embeddings}", cache_dir=cache_dir)
 

@@ -11,7 +11,7 @@ The integration is very simple:
  1. Copy the `fasttext_custom_embeddings_with_flair.py` file to your project. 
  2. Install the packages from `requirements.txt`.
  3. Import the `FastTextEmbeddings` from `fasttext_custom_embeddings_with_flair.py` file.
- 4. Instantiate an object of `FastTextEmbeddings` by passing either the ***local path*** or the ***remote http(s) url*** to the constructer. 
+ 4. Instantiate an object of `FastTextEmbeddings` by passing either the ***local path*** or the ***remote http(s) url*** to the constructor. 
  5. Use it like you use any other embedding object in **Flair**.
 
   ---

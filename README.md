@@ -60,7 +60,8 @@ glove_embeddings = WordEmbeddings('glove')
   
 sentence = Sentence('The quick brown fox jumps over a lazy dog.', use_tokenizer=True)  
   
-stacked_embeddings = StackedEmbeddings([ft_embeddings, glove_embeddings]) stacked_embeddings.embed(sentence)  
+stacked_embeddings = StackedEmbeddings([ft_embeddings, glove_embeddings]) 
+stacked_embeddings.embed(sentence)  
 ```  
   
 ---
@@ -75,7 +76,8 @@ glove_embeddings = WordEmbeddings('glove')
   
 sentence = Sentence('The quick brown fox jumps over a lazy dog.', use_tokenizer=True)  
   
-document_rnn_embeddings = DocumentRNNEmbeddings([ft_embeddings, glove_embeddings]) document_rnn_embeddings.embed(sentence)  
+document_rnn_embeddings = DocumentRNNEmbeddings([ft_embeddings, glove_embeddings]) 
+document_rnn_embeddings.embed(sentence)  
 ```  
 ---    
 In case of any doubts, get in [touch](https://www.linkedin.com/in/pranaychandekar/).

@@ -18,7 +18,7 @@ import gensim
 import torch
 from typing import List
 
-from flair.embeddings import TokenEmbeddings, StackedEmbeddings
+from flair.embeddings import TokenEmbeddings
 from flair.file_utils import cached_path
 from flair.data import Sentence
 
@@ -44,7 +44,7 @@ class FastTextEmbeddings(TokenEmbeddings):
             raise ValueError(f'The given embeddings "{embeddings}" is not available or is not a valid path.')
 
         cache_dir = Path("embeddings")
-        if use_local is True:
+        if use_local:
             if not Path(embeddings).exists():
                 raise ValueError(f'The given embeddings "{embeddings}" is not available or is not a valid path.')
         else:
@@ -58,7 +58,7 @@ class FastTextEmbeddings(TokenEmbeddings):
         self.use_gensim = use_gensim
         self.field = field
 
-        if use_gensim is True:
+        if use_gensim:
             self.precomputed_word_embeddings = gensim.models.FastText.load_fasttext_format(str(embeddings))
             self.__embedding_length: int = self.precomputed_word_embeddings.vector_size
         else:
@@ -116,7 +116,6 @@ if __name__ == '__main__':
         print(token, token.embedding)
 
     # Usage with StackedEmbeddings.
-    stacked_embeddings = StackedEmbeddings([ft_embeddings_local, ft_embeddings_remote])
-    stacked_embeddings.embed(sentence_1)
+    # Usage with DocumentEmbeddings.
 
     print('Time take: ', time.time() - start)

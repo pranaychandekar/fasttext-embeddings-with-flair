@@ -1,5 +1,3 @@
-
-  
 # Custom Fasttext Embeddings with Flair  
 To get a better overview and understanding of the need for this project, I would recommend to read [this article on the same.](medium) 
   

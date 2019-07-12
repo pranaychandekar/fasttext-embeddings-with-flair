@@ -5,8 +5,8 @@ import our custom embeddings in gensim then we have to convert it to gensim form
 While doing so we lose the ability of fasttext to approximate vector for out of vocabulary words using the sub-word
 information. As a solution to this problem, I present you this script.
 
-The embedding object defined using this script can be used in same way as any other Flair embedding objects.
-We can use the 'embed' function to add embeddings to tokens in 'Sentence' object. We can use this along with other
+The embedding object defined using this script can be used in the same way as any other Flair embedding objects.
+We can use the 'embed' function to add embeddings to tokens in the 'Sentence' object. We can use this along with other
 embeddings in 'StackedEmbeddings' and 'DocumentEmbeddings'.
 
 Please install packages from requirements.txt to use this script. You can then import this script to your project
@@ -31,7 +31,8 @@ class FastTextEmbeddings(TokenEmbeddings):
 
     def __init__(self, embeddings: str = None, use_local: bool = True, use_gensim: bool = False, field: str = None):
         """
-        Initializes fasttext word embeddings. Constructor downloads required embedding file if not there.
+        Initializes fasttext word embeddings. Constructor downloads required embedding file and stores in cache
+        if use_local is False.
 
         :param embeddings: path to your embeddings '.bin' file
         :param use_local: set this to False if you are using embeddings from a remote source

@@ -34,15 +34,19 @@ class FastTextEmbeddings(TokenEmbeddings):
         embeddings: str,
         use_local: bool = True,
         use_gensim: bool = False,
+        extension: str = ".bin",
         field: str = None,
     ):
         """
         Initializes fasttext word embeddings. Constructor downloads required embedding file and stores in cache
         if use_local is False.
+        The ".bin" and ".vec" embeddings format are supported. However, ".vec" doesn't support OOV functionality.
+        In case of ".vec", if word is not in vocabulary then zero vector will be returned by default.
 
         :param embeddings: path to your embeddings '.bin' file
         :param use_local: set this to False if you are using embeddings from a remote source
         :param use_gensim: set this to true if your fasttext embedding is trained with fasttext version below 0.9.1
+        :param extension: ".bin" or ".vec" are the supported extensions
         """
 
         cache_dir = Path("embeddings")
@@ -63,14 +67,22 @@ class FastTextEmbeddings(TokenEmbeddings):
 
         self.use_gensim = use_gensim
 
-        if use_gensim:
-            self.precomputed_word_embeddings = gensim.models.FastText.load_fasttext_format(
+        if extension == ".bin":
+            if use_gensim:
+                self.precomputed_word_embeddings = gensim.models.FastText.load_fasttext_format(
+                    str(embeddings)
+                )
+                self.__embedding_length: int = self.precomputed_word_embeddings.vector_size
+            else:
+                self.precomputed_word_embeddings = ft.load_model(str(embeddings))
+                self.__embedding_length: int = self.precomputed_word_embeddings.get_dimension()
+        elif extension == ".vec":
+            self.precomputed_word_embeddings = gensim.models.KeyedVectors.load_word2vec_format(
                 str(embeddings)
             )
             self.__embedding_length: int = self.precomputed_word_embeddings.vector_size
         else:
-            self.precomputed_word_embeddings = ft.load_model(str(embeddings))
-            self.__embedding_length: int = self.precomputed_word_embeddings.get_dimension()
+            raise ValueError("Unsupported extension: " + extension)
 
         self.field = field
         super().__init__()

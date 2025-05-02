@@ -1,2 +1,2 @@
 fasttext==0.9.1
-flair==0.4.2
+flair==0.15.0
